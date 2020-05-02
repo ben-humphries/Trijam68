@@ -42,7 +42,7 @@ func get_input():
 		if(currentSpellCooldown <= 0):
 			castSpellTriggered = true
 	if(Input.is_action_pressed('reload_when_dead') and dieTimer==0):
-		get_tree().reload_current_scene()
+		get_tree().reload_current_scene
 	if velocityNotZero():
 		lastPlayerDirection = Vector2(velocity.x, velocity.y)
 	velocity = velocity.normalized() * speed
@@ -72,8 +72,12 @@ func processCasting():
 		casting = true
 		castBasicShot()
 func die():
+<<<<<<< Updated upstream
+	dieTimer = 60
+=======
 	dieTimer = 100
 	
+>>>>>>> Stashed changes
 func processDieTimer():
 	if dieTimer == 0:
 		$AnimatedSprite.hide()
