@@ -49,11 +49,15 @@ func _process(delta):
 			$AnimatedSprite.flip_h = true
 	
 	if attacking:
+		var target_dir = (target as KinematicBody2D).position - position
+
 		velocity = Vector2(0,0)
 		$AnimatedSprite.play("attack")
 		if $AnimatedSprite.flip_h:
+			rotation = target_dir.angle()
 			$AnimatedSprite.offset = Vector2(24, -24)
 		else:
+			rotation = target_dir.angle() + PI
 			$AnimatedSprite.offset = Vector2(-24, -24)
 		
 		if $AnimatedSprite.frame == 8:
@@ -61,5 +65,6 @@ func _process(delta):
 	else:
 		$AnimatedSprite.play("idle")
 		$AnimatedSprite.offset = Vector2(0, 0)
+		rotation = 0
 #	pass
 	position += velocity * delta
