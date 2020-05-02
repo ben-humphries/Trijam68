@@ -38,4 +38,5 @@ disabled = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
+frame = 3
 playing = true

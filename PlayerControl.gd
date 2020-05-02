@@ -52,7 +52,7 @@ func _ready():
 func processCasting():
 	if casting:
 		castBasicShot()
-func Die():
+func die():
 	dieTimer = 10
 func processDieTimer():
 	if dieTimer == 0:

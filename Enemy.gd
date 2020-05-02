@@ -18,7 +18,7 @@ func die():
 
 func do_damage(damage):
 	health -= damage
-	if health < 0:
+	if health <= 0:
 		die()
 
 # Called when the node enters the scene tree for the first time.
@@ -38,7 +38,7 @@ func _process(delta):
 		
 		var target_dist = position.distance_to((target as KinematicBody2D).position)
 		if target_dist < DIST_THRESHOLD:
-			if target.has_method("die"):
+			if target.has_method("die") && attacking == false:
 				target.die()
 			attacking = true
 		else:
