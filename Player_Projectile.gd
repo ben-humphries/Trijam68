@@ -16,7 +16,8 @@ func _physics_process(delta):
 	var collidedWith = move_and_collide(velocity)
 	if collidedWith:
 		if collidedWith.collider.has_method("do_damage"):
-			collidedWith.collider.damage(damage)
+			collidedWith.collider.do_damage(damage)
+		get_parent().remove_child(self)
 	enableColliderTimer -=1
 	if enableColliderTimer == 0:
 		$CollisionShape2D.disabled = false
