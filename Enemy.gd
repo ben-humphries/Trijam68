@@ -29,20 +29,19 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
-	
+
 	velocity = Vector2(0,0)
 	if target:
 		var target_dir = (target as KinematicBody2D).position - position
 		target_dir = target_dir.normalized()
 		velocity = target_dir * SPEED
-		
+
 		var target_dist = position.distance_to((target as KinematicBody2D).position)
-		if target_dist < DIST_THRESHOLD:
+		if target_dist < DIST_THRESHOLD && target.dieTimer < 0:
 			if target.has_method("die") && attacking == false:
 				target.die()
+
 			attacking = true
-		else:
-			attacking = false
 	
 	if velocity.x < 0:
 			$AnimatedSprite.flip_h = false

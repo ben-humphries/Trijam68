@@ -53,7 +53,7 @@ func processCasting():
 	if casting:
 		castBasicShot()
 func die():
-	dieTimer = 10
+	dieTimer = 60
 func processDieTimer():
 	if dieTimer == 0:
 		get_parent().remove_child(self)
