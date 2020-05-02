@@ -16,9 +16,9 @@ func processAnimation():
 		$AnimatedSprite.play("Idle")
 func get_input():
 	velocity = Vector2()
-	print("awefawef")
+	#print("awefawef")
 	if Input.is_action_pressed('right'):
-		print("right")
+		#print("right")
 		velocity.x += 1
 	if Input.is_action_pressed('left'):
 		velocity.x -= 1
@@ -30,7 +30,7 @@ func get_input():
 	
 func _physics_process(delta):
 	get_input()
-	print(velocity)
+	#print(velocity)
 	processAnimation()
 	move_and_collide(velocity)
 # Called when the node enters the scene tree for the first time.
