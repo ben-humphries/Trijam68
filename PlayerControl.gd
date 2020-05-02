@@ -5,6 +5,9 @@ extends KinematicBody2D
 # var a = 2
 # var b = "text"
 var speed = 5;
+const SpellCooldown = 15
+var currentSpellCooldown = SpellCooldown
+var casting = false
 func processAnimation():
 	if(velocity.x > 0):
 		$AnimatedSprite.scale.x =1
@@ -16,9 +19,7 @@ func processAnimation():
 		$AnimatedSprite.play("Idle")
 func get_input():
 	velocity = Vector2()
-	print("awefawef")
 	if Input.is_action_pressed('right'):
-		print("right")
 		velocity.x += 1
 	if Input.is_action_pressed('left'):
 		velocity.x -= 1
@@ -26,6 +27,9 @@ func get_input():
 		velocity.y += 1
 	if Input.is_action_pressed('up'):
 		velocity.y -= 1
+	if Input.is_action_pressed('fire'):
+		if(currentSpellCooldown <= 0):
+			pass
 	velocity = velocity.normalized() * speed
 	
 func _physics_process(delta):
