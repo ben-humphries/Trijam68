@@ -15,6 +15,7 @@ var health = 100
 
 func die():
 	get_parent().remove_child(self)
+	target.score += 1
 
 func do_damage(damage):
 	health -= damage
@@ -54,10 +55,10 @@ func _process(delta):
 		velocity = Vector2(0,0)
 		$AnimatedSprite.play("attack")
 		if $AnimatedSprite.flip_h:
-			rotation = target_dir.angle()
+			rotation = target_dir.angle() + .2
 			$AnimatedSprite.offset = Vector2(24, -24)
 		else:
-			rotation = target_dir.angle() + PI
+			rotation = target_dir.angle() + PI - .2
 			$AnimatedSprite.offset = Vector2(-24, -24)
 		
 		if $AnimatedSprite.frame == 8:

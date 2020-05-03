@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Sprites/Wizard_Walking.png" type="Texture" id=1]
 [ext_resource path="res://PlayerControl.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/Casting_Spell.png" type="Texture" id=3]
+[ext_resource path="res://res/Font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://res/circle.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -24,11 +26,11 @@ region = Rect2( 16, 16, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 16, 16 )
+region = Rect2( 0, 16, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 16, 16, 16 )
+region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
@@ -41,14 +43,14 @@ animations = [ {
 "name": "Cast_Spell",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 6 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "Walk",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 8 ) ],
+"loop": true,
+"name": "Idle",
 "speed": 5.0
 } ]
 
@@ -72,3 +74,32 @@ drag_margin_top = 0.0
 drag_margin_right = 0.0
 drag_margin_bottom = 0.0
 editor_draw_drag_margin = true
+
+[node name="GUI" type="MarginContainer" parent="Camera2D"]
+anchor_right = 1.0
+margin_left = -194.0
+margin_top = 76.0
+margin_right = 196.0
+margin_bottom = 122.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="Camera2D/GUI"]
+margin_right = 390.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Score:"
+
+[node name="RestartLabel" type="Label" parent="Camera2D/GUI"]
+visible = false
+margin_right = 390.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Press R to Restart"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 5 )

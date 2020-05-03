@@ -11,7 +11,7 @@ var enemy = load("res://Enemy.tscn")
 
 var timer = 0
 
-
+var spawn_rate_timer = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -20,7 +20,13 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
+	
 	timer += delta
+	spawn_rate_timer += delta
+	
+	if (spawn_rate_timer >= 15):
+		SPAWN_RATE += 0.5
+		spawn_rate_timer = 0
 	
 	if timer > 1 / SPAWN_RATE:
 		var new_enemy = enemy.instance()

@@ -13,6 +13,8 @@ var dieTimer = -1
 var lastPlayerDirection = Vector2()
 var projectile = load("res://Player_Projectile.tscn")
 var castSpellTriggered = false
+var score = 0
+
 func processAnimation():
 	
 	if(velocity.x > 0):
@@ -64,6 +66,9 @@ func _physics_process(delta):
 	if(dieTimer < 0):
 		processCasting()
 		move_and_collide(velocity)
+	if dieTimer == 0:
+		get_node("/root/World/Player/Camera2D/GUI/RestartLabel").visible = true
+	get_node("/root/World/Player/Camera2D/GUI/ScoreLabel").text = "Score: " + str(score)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
