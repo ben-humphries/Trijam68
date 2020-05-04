@@ -1,0 +1,61 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Sprites/Spike.png" type="Texture" id=1]
+[ext_resource path="res://SpikesRemoval.gd" type="Script" id=2]
+[ext_resource path="res://SpikesFrameCheck.gd" type="Script" id=3]
+[ext_resource path="res://spikebodyt.gd" type="Script" id=4]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 32, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 7 ), SubResource( 7 ), SubResource( 6 ), SubResource( 5 ), SubResource( 4 ), SubResource( 3 ), SubResource( 2 ), SubResource( 1 ), SubResource( 1 ) ],
+"loop": true,
+"name": "Spikes",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 2.47346, 2.67549 )
+
+[node name="Spikes" type="AnimatedSprite"]
+frames = SubResource( 8 )
+animation = "Spikes"
+frame = 15
+playing = true
+script = ExtResource( 2 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+position = Vector2( 0.323532, -5.17654 )
+shape = SubResource( 9 )
+disabled = true
+script = ExtResource( 3 )

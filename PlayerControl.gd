@@ -5,16 +5,18 @@ extends KinematicBody2D
 # var a = 2
 # var b = "text"
 var speed = 3;
-const SpellCooldown = 15
+const SpellCooldown = 45
 var currentSpellCooldown = 0
 var casting = false
 var velocity = Vector2()
 var dieTimer = -1
 var lastPlayerDirection = Vector2()
 var projectile = load("res://Player_Projectile.tscn")
+var shadowToClone = load("res://Shadow.tscn")
+var spikesToClone = load("res://Spikes.tscn")
 var castSpellTriggered = false
 var score = 0
-
+var currentShadow = null
 func processAnimation():
 	
 	if(velocity.x > 0):
@@ -40,9 +42,6 @@ func get_input():
 		velocity.y += 1
 	if Input.is_action_pressed('up'):
 		velocity.y -= 1
-	if Input.is_action_pressed('fire'):
-		if(currentSpellCooldown <= 0):
-			castSpellTriggered = true
 	if(Input.is_action_pressed('reload_when_dead') and dieTimer==0):
 		get_tree().reload_current_scene()
 	if velocityNotZero():
@@ -52,7 +51,6 @@ func get_input():
 func velocityNotZero() -> bool:
 	return velocity.x != 0 || velocity.y != 0
 func processTimers():
-	currentSpellCooldown-=1;
 	if(dieTimer > 0):
 		dieTimer -=1
 	processDieTimer()
@@ -73,9 +71,28 @@ func _physics_process(delta):
 func _ready():
 	pass
 func processCasting():
+	castSpellTriggered = false
+	currentSpellCooldown-=1
+	print(currentSpellCooldown)
+	if Input.is_action_pressed('cast_basic_shot') or Input.is_action_pressed("cast_fireball") or Input.is_action_pressed("cast_jump") or Input.is_action_pressed("cast_shadow") or Input.is_action_pressed("cast_spikes"):
+		if(currentSpellCooldown <= 0):
+			castSpellTriggered = true
+			currentSpellCooldown = SpellCooldown
+			
 	if castSpellTriggered:
 		casting = true
-		castBasicShot()
+		if Input.is_action_pressed('cast_basic_shot'):
+			castBasicShot()
+		if Input.is_action_pressed('cast_fireball'):
+			castFireball()
+		if Input.is_action_pressed('cast_jump'):
+			print("jumping")
+			castJump()
+		if Input.is_action_pressed('cast_shadow'):
+			print("casting shadow")
+			castShadow()
+		if Input.is_action_pressed('cast_spikes'):
+			castSpikes()
 func die():
 	dieTimer = 100
 	
@@ -83,7 +100,6 @@ func processDieTimer():
 	if dieTimer == 0:
 		$AnimatedSprite.hide()
 func castBasicShot():
-	currentSpellCooldown = SpellCooldown
 	
 	var currentSpell = projectile.instance()
 	add_child(currentSpell)
@@ -97,6 +113,25 @@ func castBasicShot():
 		var holder = Vector2(1, 0)
 		currentSpell.velocity = Vector2(holder.x, holder.y)
 	currentSpell.velocity *= currentSpell.speed
+func castFireball():
+	pass
+func castJump():
+	var jumpBy =velocity.normalized() * 75
+	move_and_collide(jumpBy)
+func castShadow():
+	if currentShadow == null:
+		currentShadow = shadowToClone.instance()
+		get_parent().add_child(currentShadow)
+		currentShadow.position = Vector2(position.x, position.y)
+	else:
+		position = Vector2(currentShadow.position.x, currentShadow.position.y)
+		currentShadow.get_parent().remove_child(currentShadow)
+		currentShadow = null
+func castSpikes():
+	var spikes = spikesToClone.instance()
+	spikes.position = Vector2(position.x, position.y)
+	get_parent().add_child(spikes)
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
