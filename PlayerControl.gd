@@ -13,6 +13,7 @@ var dieTimer = -1
 var lastPlayerDirection = Vector2()
 var projectile = load("res://Player_Projectile.tscn")
 var shadowToClone = load("res://Shadow.tscn")
+var fireball = load("res://Fireball.tscn")
 var spikesToClone = load("res://Spikes.tscn")
 var castSpellTriggered = false
 var score = 0
@@ -114,7 +115,20 @@ func castBasicShot():
 		currentSpell.velocity = Vector2(holder.x, holder.y)
 	currentSpell.velocity *= currentSpell.speed
 func castFireball():
-	pass
+	var currentSpell = fireball.instance()
+	get_parent().add_child(currentSpell)
+	currentSpell.position = Vector2(position.x, position.y)
+	if velocity.x != 0 or velocity.y != 0:
+		var holder = velocity.normalized()
+		currentSpell.velocity = Vector2(holder.x, holder.y)
+	elif lastPlayerDirection.x != 0 or lastPlayerDirection.y != 0:
+		var holder = Vector2(lastPlayerDirection.x, lastPlayerDirection.y)
+		currentSpell.velocity = Vector2(holder.x, holder.y)
+	else:
+		var holder = Vector2(1, 0)
+		currentSpell.velocity = Vector2(holder.x, holder.y)
+	currentSpell.velocity *= currentSpell.speed
+
 func castJump():
 	var jumpBy =velocity.normalized() * 75
 	move_and_collide(jumpBy)
